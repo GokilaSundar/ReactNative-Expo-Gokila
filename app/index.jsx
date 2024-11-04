@@ -58,18 +58,21 @@ export default function App() {
               source={Path}
             />
           </View>
-          <Button
-            buttonStyle={{
-              width: "60%",
-              height: 30,
-              backgroundColor: "#FFA300",
-            }}
-            textStyle={{ fontSize: 15, fontWeight: "bold" }}
-            buttonTitle="Continue with Email"
-            handlePress={() => {
-              router.push("/signin");
-            }}
-          />
+
+          <View style={{ marginTop: 25, width: "100%" }}>
+            <Button
+              buttonStyle={{
+                // height: 40,
+                backgroundColor: "#FFA300",
+              }}
+              textStyle={{ fontSize: 15, fontWeight: "bold" }}
+              buttonTitle="Continue with Email"
+              handlePress={() => {
+                router.push("/signin");
+              }}
+            />
+          </View>
+
           <StatusBar backgroundColor="#161622" style="light" />
         </View>
       </ScrollView>

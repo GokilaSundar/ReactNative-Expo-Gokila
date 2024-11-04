@@ -13,15 +13,13 @@ const Button = ({
       onPress={handlePress}
       activeOpacity={0.7}
       style={{
-        // width: "60%",
-        // height: 30,
-        display: "flex",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 5,
-        marginTop: 15,
-        marginLeft: 50,
-        marginRight: 50,
+        height: 50,
+        // marginTop: 15,
+        marginLeft: 20,
+        marginRight: 20,
         ...buttonStyle,
         opacity: isLoading ? 0.6 : 1,
       }}
