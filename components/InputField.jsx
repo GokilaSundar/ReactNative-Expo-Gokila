@@ -12,7 +12,7 @@ const InputField = ({
   textStyle = {},
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  console.log(!showPassword);
+  //   console.log(!showPassword);
   return (
     <View style={{}}>
       <Text style={{ color: "white", ...fieldStyle }}>{title}</Text>

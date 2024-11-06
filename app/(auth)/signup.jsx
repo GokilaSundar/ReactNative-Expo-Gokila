@@ -1,14 +1,30 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import Button from "../../components/Button";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import InputField from "../../components/InputField";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Logo from "../../assets/logo.png";
-
+import { createUser } from "../../lib/appwrite";
 const SignUp = () => {
   const [form, setForm] = useState({ userName: "", email: "", password: "" });
-  const submit = () => {};
+  const [submiting, setIsSubmiting] = useState(false);
+  const submit = async () => {
+    if (!form.userName || !form.email || !form.password) {
+      Alert.alert("Error", "Please fill the field");
+    }
+    setIsSubmiting(true);
+    try {
+      console.log(form.email, "emails");
+      await createUser(form.email, form.userName, form.password);
+      router.replace("/home");
+    } catch (error) {
+      console.log(error, "signupError");
+      Alert.alert("Error", error.message);
+    } finally {
+      setIsSubmiting(false);
+    }
+  };
 
   return (
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
@@ -22,7 +38,7 @@ const SignUp = () => {
               fontSize: 20,
             }}
           >
-            Sign up
+            Sign Up
           </Text>
           <InputField
             title="Username"
@@ -67,8 +83,9 @@ const SignUp = () => {
               backgroundColor: "#FFA300",
             }}
             textStyle={{ fontSize: 16, fontWeight: "bold" }}
-            buttonTitle="Sign in"
+            buttonTitle="Sign Up"
             handlePress={submit}
+            isLoading={submiting}
           />
         </View>
 

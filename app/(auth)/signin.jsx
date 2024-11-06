@@ -1,13 +1,31 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Logo from "../../assets/logo.png";
 import InputField from "../../components/InputField";
 import Button from "../../components/Button";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { signIn } from "../../lib/appwrite";
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
-  const submit = () => {};
+  const [submiting, setIsSubmiting] = useState(false);
+  const submit = async () => {
+    if (!form.email || !form.password) {
+      Alert.alert("Error", "Please fill the field");
+    }
+    // setIsSubmiting(true);
+    try {
+      console.log(form.email, "emails");
+      await signIn(form.email, form.password);
+      router.replace("/home");
+    } catch (error) {
+      console.log(error, "signinError");
+      Alert.alert("Error", error.message);
+    } finally {
+      // setIsSubmiting(false);
+    }
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -63,6 +81,7 @@ const SignIn = () => {
             textStyle={{ fontSize: 16, fontWeight: "bold" }}
             buttonTitle="Sign in"
             handlePress={submit}
+            // isLoading={submiting}
           />
         </View>
 
