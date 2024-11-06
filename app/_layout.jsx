@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
 import { Slot, SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
+import GlobalContextProvider from "../context/GlobalProvider";
 
 SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
@@ -40,12 +41,13 @@ const RootLayout = () => {
     // </>
     // ^it render current child inside the app, i.e index.jsx
     // ^ it doesn't show the page crumbs but can access navigation
-
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <GlobalContextProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </GlobalContextProvider>
     // ^ it will show the page crumbs but can access navigation
   );
 };

@@ -13,16 +13,17 @@ const SignIn = () => {
     if (!form.email || !form.password) {
       Alert.alert("Error", "Please fill the field");
     }
-    // setIsSubmiting(true);
+    setIsSubmiting(true);
     try {
       console.log(form.email, "emails");
-      await signIn(form.email, form.password);
+      const result = await signIn(form.email, form.password);
+
       router.replace("/home");
     } catch (error) {
       console.log(error, "signinError");
       Alert.alert("Error", error.message);
     } finally {
-      // setIsSubmiting(false);
+      setIsSubmiting(false);
     }
   };
 

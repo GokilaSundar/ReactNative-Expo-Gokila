@@ -6,7 +6,11 @@ import Onboard from "../assets/Onboarding-img.png";
 import Logo from "../assets/logo.png";
 import Path from "../assets/images/path.png";
 import Button from "../components/Button";
+import { useGlobalContext } from "../context/GlobalProvider";
 export default function App() {
+  const { isLoading, isLoggedIn } = useGlobalContext();
+  console.log("isLoading", useGlobalContext());
+  if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
   return (
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
       <ScrollView contentContainerStyle={{ height: "100%", marginTop: -50 }}>
