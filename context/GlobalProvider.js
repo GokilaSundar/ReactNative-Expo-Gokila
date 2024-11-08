@@ -30,6 +30,19 @@ const GlobalContextProvider = ({ children }) => {
       })
       .finally(() => setIsLoading(false));
   }, []);
-  return <GlobalContext.Provider value={{}}>{children}</GlobalContext.Provider>;
+  return (
+    <GlobalContext.Provider
+      value={{
+        user,
+        setUser,
+        isLoggedIn,
+        setIsLoggedIn,
+        isLoading,
+        setIsLoading,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
 };
 export default GlobalContextProvider;
