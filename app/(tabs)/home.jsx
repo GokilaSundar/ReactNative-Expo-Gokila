@@ -1,21 +1,33 @@
-import { View, Text, FlatList, Image, RefreshControl } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  RefreshControl,
+  Alert,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import image from "../../constants/images";
 import SearchField from "../../components/SearchField";
 import Trending from "../../components/Trending";
 import EmptyPage from "../../components/EmptyPage";
+import { getAllPosts } from "../../lib/appwrite";
+import useAppwrite from "../../lib/useAppwrite";
 const Home = () => {
   const [refresh, setRefreah] = useState(false);
-
+  const { data: videos } = useAppwrite(getAllPosts);
   const handleRefresh = async () => {
     setRefreah(true);
   };
+
+  // console.log(videos, "itemmssss");
+
   return (
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
       <FlatList
-        // data={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
-        data={[]}
+        data={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
+        // data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
           <Text
