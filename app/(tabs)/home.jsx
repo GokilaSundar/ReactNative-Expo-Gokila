@@ -14,32 +14,23 @@ import Trending from "../../components/Trending";
 import EmptyPage from "../../components/EmptyPage";
 import { getAllPosts } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
+import VideoCard from "../../components/VideoCard";
 const Home = () => {
   const [refresh, setRefreah] = useState(false);
-  const { data: videos } = useAppwrite(getAllPosts);
+  const { data: videos, loading, refetch } = useAppwrite(getAllPosts);
   const handleRefresh = async () => {
     setRefreah(true);
+    await refetch();
+    setRefreah(false);
   };
-
-  // console.log(videos, "itemmssss");
 
   return (
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
+        data={videos}
         // data={[]}
-        keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => (
-          <Text
-            style={{
-              color: "white",
-              marginLeft: 5,
-              fontSize: 21,
-            }}
-          >
-            {item.id}
-          </Text>
-        )}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={
           <View
             style={{
