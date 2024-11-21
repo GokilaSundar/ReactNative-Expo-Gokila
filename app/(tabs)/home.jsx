@@ -12,12 +12,17 @@ import image from "../../constants/images";
 import SearchField from "../../components/SearchField";
 import Trending from "../../components/Trending";
 import EmptyPage from "../../components/EmptyPage";
-import { getAllPosts } from "../../lib/appwrite";
+import { getAllPosts, getTrendingVideos } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import VideoCard from "../../components/VideoCard";
 const Home = () => {
   const [refresh, setRefreah] = useState(false);
   const { data: videos, loading, refetch } = useAppwrite(getAllPosts);
+  const {
+    data: trendingVideos,
+    // loading: loadTrendingVideos,
+    // refetch: refetchTrending,
+  } = useAppwrite(getTrendingVideos);
   const handleRefresh = async () => {
     setRefreah(true);
     await refetch();
@@ -92,11 +97,7 @@ const Home = () => {
               >
                 Trending Videos
               </Text>
-              <Trending
-                posts={
-                  [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }] ?? []
-                }
-              />
+              <Trending posts={trendingVideos ?? []} />
             </View>
           </View>
         }
